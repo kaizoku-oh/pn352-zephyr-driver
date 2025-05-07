@@ -1,0 +1,16 @@
+/ {
+    pn532: pn532@0 {
+        compatible = "nxp,pn532";
+        status = "okay";
+        reg = <0>;
+        spi = <&spi1>;
+        cs-gpios = <&gpiob 0 GPIO_ACTIVE_LOW>;
+        label = "PN532_SPI";
+    };
+};
+
+&spi1 {
+    status = "okay";
+    pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+    pinctrl-names = "default";
+};

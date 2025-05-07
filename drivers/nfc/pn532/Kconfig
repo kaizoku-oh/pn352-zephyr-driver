@@ -1,0 +1,30 @@
+# Defining Kconfig options for PN532 driver
+config NFC_PN532
+    bool "PN532 NFC Driver"
+    help
+      Enable support for NXP PN532 NFC module.
+
+choice PN532_TRANSPORT
+    prompt "PN532 Transport"
+    depends on NFC_PN532
+    help
+      Select the transport protocol for the PN532 NFC module.
+
+config PN532_I2C
+    bool "I2C"
+    depends on I2C
+    help
+      Use I2C transport for PN532.
+
+config PN532_SPI
+    bool "SPI"
+    depends on SPI
+    help
+      Use SPI transport for PN532.
+
+config PN532_UART
+    bool "UART"
+    depends on UART
+    help
+      Use UART transport for PN532.
+endchoice

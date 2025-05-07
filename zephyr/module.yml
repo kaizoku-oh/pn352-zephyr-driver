@@ -1,0 +1,6 @@
+# Defining metadata for the PN532 NFC driver module
+name: pn532_driver
+description: Out-of-tree Zephyr driver for NXP PN532 NFC module
+build:
+  cmake: .
+  kconfig: drivers/nfc/pn532/Kconfig

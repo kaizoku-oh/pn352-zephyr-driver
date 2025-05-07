@@ -1,0 +1,16 @@
+# Defining the device tree binding for the PN532 NFC module
+compatible: "nxp,pn532"
+include: [i2c-device.yaml, spi-device.yaml, uart-device.yaml]
+properties:
+  reg:
+    type: int
+    required: true
+    description: I2C or SPI device address
+  label:
+    type: string
+    required: true
+    description: Human-readable device label
+  cs-gpios:
+    type: phandle-array
+    required: false
+    description: Chip select GPIO for SPI
