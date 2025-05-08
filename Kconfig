@@ -1,0 +1,26 @@
+menuconfig PN532
+	bool "PN532 NFC Driver"
+	select I2C
+	select SPI
+	select SERIAL
+	help
+	  Enable support for the PN532 NFC module.
+
+if PN532
+
+choice
+	prompt "PN532 Transport"
+	default PN532_TRANSPORT_I2C
+
+config PN532_TRANSPORT_I2C
+	bool "I2C transport"
+
+config PN532_TRANSPORT_SPI
+	bool "SPI transport"
+
+config PN532_TRANSPORT_UART
+	bool "UART transport"
+
+endchoice
+
+endif # PN532

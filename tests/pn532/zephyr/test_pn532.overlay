@@ -1,7 +1,0 @@
-/ {
-    test_pn532: test_pn532 {
-        compatible = "nxp,pn532";
-        status = "okay";
-        label = "TEST_PN532";
-    };
-};
