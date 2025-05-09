@@ -1,22 +1,61 @@
+/*
+ * Copyright (c) 2025 Bayrem Gharsellaoui
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#define DT_DRV_COMPAT nxp_pn532
+
+#include <zephyr/device.h>
+#include <zephyr/drivers/i2c.h>
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
 #include "pn532.h"
 
-static int pn532_get_fw_version_impl(const struct device *dev, uint32_t *version)
+LOG_MODULE_REGISTER(pn532, CONFIG_PN532_LOG_LEVEL);
+
+struct pn532_config {
+    const struct device *i2c_dev;
+};
+
+struct pn532_data {
+    uint32_t dummy;
+};
+
+static int pn532_get_firmware_version(const struct device *dev, uint32_t *version)
 {
-    uint8_t cmd[] = { 0x02 };
-    uint8_t resp[6] = {0};
-
-    pn532_write(dev, cmd, sizeof(cmd));
-    pn532_read(dev, resp, sizeof(resp));
-
-    *version = (resp[3] << 16) | (resp[4] << 8) | resp[5];
+    (void *)dev;
+    *version = 0xDEADBEEF;
     return 0;
 }
 
-static const struct pn532_driver_api api = {
-    .get_fw_version = pn532_get_fw_version_impl,
+static DEVICE_API(pn532, pn532_api) = {
+    .get_firmware_version = pn532_get_firmware_version,
 };
 
-#define PN532_INIT(n) \
-    DEVICE_DT_INST_DEFINE(n, NULL, NULL, NULL, NULL, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &api);
+static int pn532_init(const struct device *dev)
+{
+    const struct pn532_config *config = dev->config;
+    struct pn532_data *data = dev->data;
 
-DT_INST_FOREACH_STATUS_OKAY(PN532_INIT)
+    if (!device_is_ready(config->i2c_dev)) {
+        LOG_ERR("I2C device %s not ready", config->i2c_dev->name);
+        return -ENODEV;
+    }
+
+    LOG_INF("PN532 initialized on I2C device %s", config->i2c_dev->name);
+    return 0;
+}
+
+#define PN532_DEFINE(inst)                                         \
+    static struct pn532_data data##inst;                           \
+                                                                   \
+    static const struct pn532_config config_##inst = {             \
+        .i2c_dev = DEVICE_DT_GET(DT_INST_BUS(inst)),               \
+    };                                                             \
+                                                                   \
+    DEVICE_DT_INST_DEFINE(inst, pn532_init, NULL,                  \
+                          &data_##inst, &config_##inst,            \
+                          POST_KERNEL, CONFIG_PN532_INIT_PRIORITY, \
+                          &pn532_api);
+
+DT_INST_FOREACH_STATUS_OKAY(PN532_DEFINE)

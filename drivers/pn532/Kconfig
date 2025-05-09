@@ -1,16 +1,21 @@
-config PN532
-    bool "Enable PN532 driver"
-    depends on I2C
+# Copyright (c) 2025 Bayrem Gharsellaoui
+# SPDX-License-Identifier: Apache-2.0
+
+menuconfig PN532
+	bool "PN532 device drivers"
+	help
+	  This option enables the pn532 custom driver class.
 
 if PN532
-    config PN532_DUMMY_CONFIG
-        int "Dummy config"
-        default 0
-        range 0 9
-        help
-            A dummy config for demo purposes
 
-    module = PN532
-    module-str = PN532
-    source "subsys/logging/Kconfig.template.log_config"
-endif
+config PN532_INIT_PRIORITY
+	int "PN532 device drivers init priority"
+	default KERNEL_INIT_PRIORITY_DEVICE
+	help
+	  PN532 device drivers init priority.
+
+module = PN532
+module-str = pn532
+source "subsys/logging/Kconfig.template.log_config"
+
+endif # PN532

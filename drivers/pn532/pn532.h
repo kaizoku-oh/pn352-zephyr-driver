@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 Bayrem Gharsellaoui
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #ifndef PN532_H
 #define PN532_H
 
@@ -86,5 +91,9 @@ static inline int z_impl_pn532_get_firmware_version(const struct device *dev, ui
 }
 
 #include <syscalls/pn532.h>
+
+/** @} */
+
+/** @} */
 
 #endif /* PN532_H */
