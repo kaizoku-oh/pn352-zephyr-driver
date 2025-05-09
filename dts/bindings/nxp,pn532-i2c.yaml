@@ -1,5 +1,0 @@
-compatible: "nxp,pn532-i2c"
-include: ["i2c-device.yaml"]
-properties:
-  label:
-    required: true

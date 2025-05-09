@@ -1,0 +1,2 @@
+# menu "pn532"
+rsource "pn532/Kconfig"

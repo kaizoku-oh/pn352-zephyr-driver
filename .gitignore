@@ -1,1 +1,5 @@
+.vscode/
+*.code-workspace
 build/
+twister-out*/
+.west/

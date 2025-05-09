@@ -1,0 +1,6 @@
+description: |
+  PN532 NFC module driver dts binding
+
+compatible: "nxp,pn532"
+
+include: [base.yaml, i2c-device.yaml]

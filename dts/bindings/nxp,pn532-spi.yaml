@@ -1,5 +1,0 @@
-compatible: "nxp,pn532-spi"
-include: ["spi-device.yaml"]
-properties:
-  label:
-    required: true

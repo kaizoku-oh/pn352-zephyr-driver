@@ -1,0 +1,16 @@
+config PN532
+    bool "Enable PN532 driver"
+    depends on I2C
+
+if PN532
+    config PN532_DUMMY_CONFIG
+        int "Dummy config"
+        default 0
+        range 0 9
+        help
+            A dummy config for demo purposes
+
+    module = PN532
+    module-str = PN532
+    source "subsys/logging/Kconfig.template.log_config"
+endif

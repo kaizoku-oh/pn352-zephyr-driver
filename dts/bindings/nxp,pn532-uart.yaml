@@ -1,5 +1,0 @@
-compatible: "nxp,pn532-uart"
-include: ["uart-device.yaml"]
-properties:
-  label:
-    required: true
