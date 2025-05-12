@@ -6,6 +6,7 @@
 #define DT_DRV_COMPAT nxp_pn532
 
 #include <zephyr/device.h>
+#include <zephyr/devicetree.h>
 #include <zephyr/drivers/i2c.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
@@ -13,23 +14,23 @@
 
 LOG_MODULE_REGISTER(pn532, CONFIG_PN532_LOG_LEVEL);
 
-struct pn532_config {
-    const struct device *i2c_dev;
-};
-
 struct pn532_data {
     uint32_t dummy;
 };
 
+struct pn532_config {
+    const struct device *i2c_dev;
+};
+
 static int pn532_get_firmware_version(const struct device *dev, uint32_t *version)
 {
-    (void *)dev;
+    (void)dev;
     *version = 0xDEADBEEF;
     return 0;
 }
 
 static DEVICE_API(pn532, pn532_api) = {
-    .get_firmware_version = pn532_get_firmware_version,
+    .get_firmware_version = &pn532_get_firmware_version,
 };
 
 static int pn532_init(const struct device *dev)
@@ -39,6 +40,7 @@ static int pn532_init(const struct device *dev)
 
     if (!device_is_ready(config->i2c_dev)) {
         LOG_ERR("I2C device %s not ready", config->i2c_dev->name);
+        LOG_ERR("Dummy data = %d", data->dummy);
         return -ENODEV;
     }
 
@@ -49,12 +51,12 @@ static int pn532_init(const struct device *dev)
 #define PN532_DEFINE(inst)                                         \
     static struct pn532_data data##inst;                           \
                                                                    \
-    static const struct pn532_config config_##inst = {             \
+    static const struct pn532_config config##inst = {              \
         .i2c_dev = DEVICE_DT_GET(DT_INST_BUS(inst)),               \
     };                                                             \
                                                                    \
     DEVICE_DT_INST_DEFINE(inst, pn532_init, NULL,                  \
-                          &data_##inst, &config_##inst,            \
+                          &data##inst, &config##inst,              \
                           POST_KERNEL, CONFIG_PN532_INIT_PRIORITY, \
                           &pn532_api);
 
