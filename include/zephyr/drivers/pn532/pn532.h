@@ -37,22 +37,22 @@
 
 /** @brief PN532 driver class operations */
 __subsystem struct pn532_driver_api {
-	/**
-	 * @brief Retrieve the firmware version of the PN532 module.
-	 *
-	 * This function queries the PN532 device for its firmware version.
-	 * The version is returned as a 32-bit value encoding IC version, 
-	 * firmware version, and revision.
-	 *
-	 * @param dev Pointer to the PN532 device instance.
-	 * @param version Pointer to a uint32_t where the firmware version will be stored.
-	 *
-	 * @retval 0 if successful.
-	 * @retval -EIO if communication with the device fails.
-	 * @retval -EINVAL if @p version is NULL.
-	 * @retval -errno Other negative errno codes on failure.
-	 */
-	int (*get_firmware_version)(const struct device *dev, uint32_t *version);
+    /**
+     * @brief Retrieve the firmware version of the PN532 module.
+     *
+     * This function queries the PN532 device for its firmware version.
+     * The version is returned as a 32-bit value encoding IC version, 
+     * firmware version, and revision.
+     *
+     * @param dev Pointer to the PN532 device instance.
+     * @param version Pointer to a uint32_t where the firmware version will be stored.
+     *
+     * @retval 0 if successful.
+     * @retval -EIO if communication with the device fails.
+     * @retval -EINVAL if @p version is NULL.
+     * @retval -errno Other negative errno codes on failure.
+     */
+    int (*get_firmware_version)(const struct device *dev, uint32_t *version);
 };
 
 /** @} */
@@ -85,9 +85,9 @@ __syscall int pn532_get_firmware_version(const struct device *dev, uint32_t *ver
 
 static inline int z_impl_pn532_get_firmware_version(const struct device *dev, uint32_t *version)
 {
-	__ASSERT_NO_MSG(DEVICE_API_IS(pn532, dev));
+    __ASSERT_NO_MSG(DEVICE_API_IS(pn532, dev));
 
-	return DEVICE_API_GET(pn532, dev)->get_firmware_version(dev, version);
+    return DEVICE_API_GET(pn532, dev)->get_firmware_version(dev, version);
 }
 
 #include <syscalls/pn532.h>
