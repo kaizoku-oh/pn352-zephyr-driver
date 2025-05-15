@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 menuconfig PN532
-	bool "PN532 device drivers"
-	help
-	  This option enables the pn532 custom driver class.
+    bool "PN532 device drivers"
+    help
+      This option enables the pn532 custom driver class.
 
 if PN532
 
@@ -17,10 +17,10 @@ config PN532_LOG_LEVEL
       Log level for the PN532 driver (0=off, 1=error, 2=warning, 3=info, 4=debug).
 
 config PN532_INIT_PRIORITY
-	int "PN532 device drivers init priority"
-	default KERNEL_INIT_PRIORITY_DEVICE
-	help
-	  PN532 device drivers init priority.
+    int "PN532 device drivers init priority"
+    default KERNEL_INIT_PRIORITY_DEVICE
+    help
+      PN532 device drivers init priority.
 
 module = PN532
 module-str = pn532
