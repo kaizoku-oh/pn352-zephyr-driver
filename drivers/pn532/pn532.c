@@ -24,8 +24,12 @@ struct pn532_config {
 
 static int get_firmware_version(const struct device *dev, uint32_t *version)
 {
-    (void)dev;
-    *version = 0xDEADBEEF;
+    if ((dev == NULL) || (version == NULL)) {
+        return EINVAL;
+    }
+
+    *version = 0x01020304;
+
     return 0;
 }
 
