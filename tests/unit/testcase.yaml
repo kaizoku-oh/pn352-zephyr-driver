@@ -1,5 +1,7 @@
 tests:
-  codec_tests.test_encoding_of_sensor_data:
-    platform_allow:
-      - native_sim
-    tags: driver
+  drivers.pn532:
+  integration_platforms:
+    - native_sim
+  tags:
+    - pn532
+  type: unit
