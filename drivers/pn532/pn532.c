@@ -22,7 +22,7 @@ struct pn532_config {
     const struct device *i2c_dev;
 };
 
-static int pn532_get_firmware_version(const struct device *dev, uint32_t *version)
+static int get_firmware_version(const struct device *dev, uint32_t *version)
 {
     (void)dev;
     *version = 0xDEADBEEF;
@@ -30,7 +30,7 @@ static int pn532_get_firmware_version(const struct device *dev, uint32_t *versio
 }
 
 static DEVICE_API(pn532, pn532_api) = {
-    .get_firmware_version = &pn532_get_firmware_version,
+    .pn532_get_firmware_version = &get_firmware_version,
 };
 
 static int pn532_init(const struct device *dev)
