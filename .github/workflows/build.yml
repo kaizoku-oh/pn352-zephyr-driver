@@ -1,1 +1,43 @@
-# TODO
+# Copyright (c) 2025 Bayrem Gharsellaoui
+# SPDX-License-Identifier: Apache-2.0
+
+name: Build PN532 Sample
+
+on:
+  push:
+    branches: [ main, build-ci ]
+  pull_request:
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        board: [native_sim, nucleo_f767zi]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout module repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Set up Zephyr
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          manifest-file-name: samples/pn532/basic/west.yml
+          toolchains: zephyr
+
+      - name: Initialize West and update
+        run: |
+          west init -l samples/pn532/basic
+          west update
+          west zephyr-export
+
+      - name: Build on ${{ matrix.board }}
+        run: |
+          west build -b ${{ matrix.board }} samples/pn532/basic

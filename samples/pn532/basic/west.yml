@@ -1,0 +1,18 @@
+# Copyright (c) 2025 Bayrem Gharsellaoui
+# SPDX-License-Identifier: Apache-2.0
+
+manifest:
+  version: "0.11"
+
+  projects:
+    - name: zephyr
+      url: https://github.com/zephyrproject-rtos/zephyr
+      revision: main
+      import:
+        name-allowlist:
+          - cmsis
+          - hal_stm32
+
+  self:
+    # Relative path from `samples/pn532/basic` to the repo root
+    path: ../../../
