@@ -33,6 +33,7 @@ jobs:
 
       - name: Initialize West and update
         run: |
+          rm -rf .west
           west init -l .
           west update
           west zephyr-export
