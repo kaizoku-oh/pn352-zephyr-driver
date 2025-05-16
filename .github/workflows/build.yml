@@ -33,4 +33,4 @@ jobs:
 
       - name: Build on ${{ matrix.board }}
         run: |
-          west build -b ${{ matrix.board }} samples/pn532/basic
+          west build -b ${{ matrix.board }} samples/nfc/pn532

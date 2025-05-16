@@ -14,14 +14,14 @@ The PN532 Zephyr driver is an out-of-tree module supporting the NXP PN532 NFC mo
 
 - [x] Build a minimal working driver with a single API
 
-- [ ] Add a unit test project to the module
-
 - [x] Add build CI + README badge
+
+- [x] Add release CI + README badge
+
+- [ ] Add a unit test project to the module
 
 - [ ] Add test CI running on `native_sim` board + README badge
 
 - [ ] Add code coverage CI using `codecov` + README badge
-
-- [ ] Add release CI + README badge
 
 - [ ] Add the other relavant missing APIs to the driver
