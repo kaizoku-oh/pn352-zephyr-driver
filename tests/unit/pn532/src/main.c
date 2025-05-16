@@ -6,8 +6,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/ztest.h>
-#include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(pn532_tests);
 
 #include "pn532.h"
 
