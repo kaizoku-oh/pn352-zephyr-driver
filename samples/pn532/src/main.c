@@ -21,17 +21,15 @@ LOG_MODULE_REGISTER(main);
 int main(void)
 {
     const struct device *dev = DEVICE_DT_GET_ONE(nxp_pn532);
-    uint32_t fw_version = 0;
+    uint32_t version = 0;
 
     if (!device_is_ready(dev)) {
         LOG_INF("PN532 device not ready");
         return;
     }
 
-    if (pn532_get_firmware_version(dev, &fw_version) == 0) {
-        LOG_INF("PN532 Firmware Version: %02X.%02X",
-                (fw_version >> 8) & 0xFF,
-                fw_version & 0xFF);
+    if (pn532_get_firmware_version(dev, &version) == 0) {
+        LOG_INF("PN532 Firmware Version: %02X.%02X", (version >> 8) & 0xFF, version & 0xFF);
     } else {
         LOG_ERR("Failed to get PN532 firmware version");
     }
