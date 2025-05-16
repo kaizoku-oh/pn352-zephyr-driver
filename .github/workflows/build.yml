@@ -33,11 +33,10 @@ jobs:
           manifest-file-name: west.yml
           toolchains: arm-zephyr-eabi
 
-      - name: Initialize West and update
+      - name: Re-init west workspace
         run: |
-          if [ ! -d .west ]; then
-            west init -l .
-          fi
+          rm -rf .west
+          west init -l .
           west update
           west zephyr-export
 
