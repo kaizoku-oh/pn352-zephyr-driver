@@ -10,12 +10,15 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        board: [native_sim, nucleo_f767zi]
-
-    runs-on: ubuntu-latest
+        board:
+          - name: native_sim
+            toolchain: host
+          - name: nucleo_f767zi
+            toolchain: arm-zephyr-eabi
 
     steps:
       - name: Checkout module repo
@@ -30,7 +33,7 @@ jobs:
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
           manifest-file-name: samples/pn532/basic/west.yml
-          toolchains: host:arm-zephyr-eabi
+          toolchains: ${{ matrix.board.toolchain }}
 
       - name: Initialize West and update
         run: |
@@ -38,6 +41,6 @@ jobs:
           west update
           west zephyr-export
 
-      - name: Build on ${{ matrix.board }}
+      - name: Build on ${{ matrix.board.name }}
         run: |
-          west build -b ${{ matrix.board }} samples/pn532/basic
+          west build -b ${{ matrix.board.name }} samples/pn532/basic
