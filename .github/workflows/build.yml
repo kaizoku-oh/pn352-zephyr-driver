@@ -30,7 +30,7 @@ jobs:
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
           manifest-file-name: samples/pn532/basic/west.yml
-          toolchains: zephyr
+          toolchains: host:arm-zephyr-eabi
 
       - name: Initialize West and update
         run: |
