@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 Bayrem Gharsellaoui
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 &i2c0 {
     status = "okay";
     pn532: pn532@24 {

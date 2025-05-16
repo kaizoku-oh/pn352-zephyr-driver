@@ -17,7 +17,7 @@
  * @brief A custom driver class to interface with the PN532 NFC module
  *
  * This driver provides an interface to the PN532
- * NFC controller over I2C. It allows applications to communicate
+ * NFC controller over I2C.
  *
  * It exposes a custom device driver API built using Zephyr's __subsystem and
  * z_impl_ mechanism, enabling structured and extendable access to PN532 features.
@@ -78,7 +78,7 @@ __subsystem struct pn532_driver_api {
  *
  * @retval 0 if successful.
  * @retval -EIO if communication with the PN532 fails.
- * @retval -EINVAL if @p version is NULL.
+ * @retval -EINVAL if @p dev or @p version is NULL.
  * @retval -errno Other negative errno codes on failure.
  */
 __syscall int pn532_get_firmware_version(const struct device *dev, uint32_t *version);
