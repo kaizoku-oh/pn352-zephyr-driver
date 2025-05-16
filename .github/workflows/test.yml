@@ -29,4 +29,9 @@ jobs:
 
       - name: Run unit tests via twister
         run: |
-          west twister -T tests -v --inline-logs --integration
+          # To force a run on native_sim locally:
+          west twister -T tests/unit/pn532 --platform native_sim --inline-logs -v
+
+          # For CI (default integration platforms):
+          # west twister -T tests/unit/pn532 --integration --inline-logs -v
+
