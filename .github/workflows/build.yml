@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout module repo
         uses: actions/checkout@v4
+        with:
+          path: .
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,8 +35,9 @@ jobs:
 
       - name: Initialize West and update
         run: |
-          rm -rf .west
-          west init -l .
+          if [ ! -d .west ]; then
+            west init -l .
+          fi
           west update
           west zephyr-export
 
