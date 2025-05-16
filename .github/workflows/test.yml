@@ -29,8 +29,6 @@ jobs:
 
       - name: Run unit tests via twister
         run: |
-          west twister -T tests/unit/pn532 -p native_sim --list
-          west twister -T tests/unit/pn532 --list
           west twister \
             -T tests/unit/pn532 \
             -p native_sim \
