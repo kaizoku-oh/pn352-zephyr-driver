@@ -9,7 +9,6 @@ tests:
     platform_allow: native_sim
     integration_platforms:
       - native_sim
-    build_only: true
     extra_configs:
       - CONFIG_TEST=y
       - CONFIG_ZTEST=y
