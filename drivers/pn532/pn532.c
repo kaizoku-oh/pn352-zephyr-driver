@@ -10,9 +10,9 @@
 #include <zephyr/drivers/i2c.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
-#include "pn532.h"
-
 LOG_MODULE_REGISTER(pn532, CONFIG_PN532_LOG_LEVEL);
+
+#include "pn532.h"
 
 struct pn532_data {
     uint32_t dummy;
@@ -49,6 +49,7 @@ static int pn532_init(const struct device *dev)
     }
 
     LOG_INF("PN532 initialized on I2C device %s", config->i2c_dev->name);
+
     return 0;
 }
 
