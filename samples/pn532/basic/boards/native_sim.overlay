@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-&i2c1 {
+&i2c0 {
     status = "okay";
     pn532: pn532@24 {
         compatible = "nxp,pn532";
