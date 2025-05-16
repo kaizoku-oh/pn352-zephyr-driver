@@ -16,7 +16,7 @@ jobs:
       matrix:
         board:
           - name: native_sim
-            toolchain: host
+            toolchain: zephyr
           - name: nucleo_f767zi
             toolchain: arm-zephyr-eabi
 
