@@ -1,0 +1,38 @@
+# Copyright (c) 2025 Bayrem Gharsellaoui
+# SPDX-License-Identifier: Apache-2.0
+
+name: Test
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout module repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Set up Zephyr
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          manifest-file-name: west.yml
+          toolchains: arm-zephyr-eabi
+
+      - name: Run unit tests via twister
+        run: |
+          west twister \
+            -T tests/unit/pn532 \
+            -p native_sim \
+            --inline-logs \
+            --enable-size-report \
+            --integration \
+            --outdir twister-out
