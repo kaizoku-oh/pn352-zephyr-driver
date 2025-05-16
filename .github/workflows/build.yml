@@ -31,6 +31,12 @@ jobs:
           manifest-file-name: west.yml
           toolchains: arm-zephyr-eabi
 
+      - name: Initialize West and update
+        run: |
+          west init -l .
+          west update
+          west zephyr-export
+
       - name: Build on ${{ matrix.board }}
         run: |
           west build -b ${{ matrix.board }} samples/pn532/basic
