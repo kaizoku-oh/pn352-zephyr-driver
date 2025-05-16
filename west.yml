@@ -6,12 +6,11 @@ manifest:
   projects:
     - name: zephyr
       url: https://github.com/zephyrproject-rtos/zephyr
-      revision: main
+      revision: v4.1.0
       import:
         name-allowlist:
           - cmsis
           - hal_stm32
 
   self:
-    # Relative path from `samples/pn532/basic` to the repo root
-    path: ../../../
+    path: .
