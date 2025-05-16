@@ -25,7 +25,7 @@ int main(void)
 
     if (!device_is_ready(dev)) {
         LOG_INF("PN532 device not ready");
-        return;
+        return EXIT_FAILURE;
     }
 
     if (pn532_get_firmware_version(dev, &version) == 0) {
