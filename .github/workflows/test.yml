@@ -1,7 +1,7 @@
 # Copyright (c) 2025 Bayrem Gharsellaoui
 # SPDX-License-Identifier: Apache-2.0
 
-name: Build
+name: Test
 
 on:
   push:
@@ -9,12 +9,8 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        board: [native_sim, nucleo_f767zi]
 
     steps:
       - name: Checkout module repo
@@ -31,6 +27,6 @@ jobs:
           manifest-file-name: west.yml
           toolchains: arm-zephyr-eabi
 
-      - name: Build on ${{ matrix.board }}
+      - name: Run unit tests via twister
         run: |
-          west build -b ${{ matrix.board }} samples/drivers/pn532
+          west twister -T tests -v --inline-logs --integration
