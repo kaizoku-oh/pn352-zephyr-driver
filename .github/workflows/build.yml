@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout module repo
         uses: actions/checkout@v4
-        with:
-          path: .
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,13 +30,6 @@ jobs:
         with:
           manifest-file-name: west.yml
           toolchains: arm-zephyr-eabi
-
-      - name: Re-init west workspace
-        run: |
-          rm -rf .west
-          west init -l .
-          west update
-          west zephyr-export
 
       - name: Build on ${{ matrix.board }}
         run: |
