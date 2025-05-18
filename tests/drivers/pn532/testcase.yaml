@@ -2,13 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 tests:
-  pn532.driver.unit:
+  driver.pn532:
     platform_allow:
       - native_sim
     integration_platforms:
       - native_sim
     tags:
+      - drivers
       - pn532
     extra_configs:
-      - CONFIG_TEST=y
       - CONFIG_PN532_TRANSPORT_MOCK=y
