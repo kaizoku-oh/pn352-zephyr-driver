@@ -114,8 +114,6 @@ static int pn532_init(const struct device *dev)
 #ifdef CONFIG_TEST
 
 #define PN532_EMUL(n)                                         \
-    static struct pn532_data data##n;                         \
-                                                                 \
     static const struct pn532_emul_cfg pn532_emul_cfg_##n = { \
         .addr = DT_INST_REG_ADDR(n),                          \
     };                                                           \
