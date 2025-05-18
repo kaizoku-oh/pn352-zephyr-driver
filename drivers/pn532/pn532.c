@@ -38,6 +38,7 @@ static DEVICE_API(pn532, pn532_api) = {
     .pn532_get_firmware_version = &get_firmware_version,
 };
 
+#if DT_HAS_COMPAT_STATUS_OKAY(nxp_pn532, okay)
 static int pn532_init(const struct device *dev)
 {
     int ret = pn532_transport_init(dev);
@@ -50,6 +51,7 @@ static int pn532_init(const struct device *dev)
 
     return 0;
 }
+#endif /* DT_HAS_COMPAT_STATUS_OKAY */
 
 #define PN532_DEFINE(inst)                                         \
     static struct pn532_data data##inst;                           \
