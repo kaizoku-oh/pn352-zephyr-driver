@@ -3,9 +3,8 @@
 
 tests:
   pn532.driver.unit:
-    type: unit
+    platform_allow: native_sim
     tags:
       - pn532
     extra_configs:
       - CONFIG_TEST=y
-      - CONFIG_ZTEST=y
