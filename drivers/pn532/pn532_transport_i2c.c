@@ -11,6 +11,8 @@ LOG_MODULE_REGISTER(pn532_i2c, CONFIG_PN532_LOG_LEVEL);
 #include "pn532.h"
 #include "pn532_transport.h"
 
+#define PN532_I2C_ADDRESS DT_REG_ADDR(DT_DRV_INST(0))
+
 struct pn532_config {
     const struct device *i2c_dev;
 };
