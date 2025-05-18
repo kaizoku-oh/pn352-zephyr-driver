@@ -46,24 +46,6 @@ static DEVICE_API(pn532, pn532_api) = {
     .pn532_get_firmware_version = &get_firmware_version,
 };
 
-static int emul_pn532_reg_write(const struct emul *target, int reg, int val)
-{
-	ARG_UNUSED(target);
-	ARG_UNUSED(reg);
-	ARG_UNUSED(val);
-
-	return 0;
-}
-
-static int emul_pn532_reg_read(const struct emul *target, int reg, int *val)
-{
-	ARG_UNUSED(target);
-	ARG_UNUSED(reg);
-	ARG_UNUSED(val);
-
-	return 0;
-}
-
 static int pn532_transfer_i2c(const struct emul *target, struct i2c_msg *msgs,
 				       int num_msgs, int addr)
 {
