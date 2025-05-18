@@ -8,4 +8,4 @@ project(pn532)
 
 include_directories(../../../include/zephyr/drivers/pn532)
 
-target_sources(testbinary PRIVATE src/main.c)
+target_sources(app PRIVATE src/main.c)
