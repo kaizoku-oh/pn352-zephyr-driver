@@ -59,15 +59,15 @@ static int pn532_init(const struct device *dev)
 
 #ifdef CONFIG_TEST
 
-#define PN532_EMUL(inst)                                         \
-    static struct pn532_data data##inst;                         \
+#define PN532_EMUL(n)                                         \
+    static struct pn532_data data##n;                         \
                                                                  \
-    static const struct pn532_emul_cfg pn532_emul_cfg_##inst = { \
-        .addr = DT_INST_REG_ADDR(inst),                          \
+    static const struct pn532_emul_cfg pn532_emul_cfg_##n = { \
+        .addr = DT_INST_REG_ADDR(n),                          \
     };                                                           \
                                                                  \
-    EMUL_DT_INST_DEFINE(inst, pn532_init, &data##inst,           \
-                        &pn532_emul_cfg_##inst, &pn532_api)
+    EMUL_DT_INST_DEFINE(n, pn532_init, NULL,           \
+                        &pn532_emul_cfg_##n, &pn532_api, NULL)
 
 DT_INST_FOREACH_STATUS_OKAY(PN532_EMUL)
 
