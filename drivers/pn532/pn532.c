@@ -67,7 +67,7 @@ static int pn532_init(const struct device *dev)
     };                                                           \
                                                                  \
     EMUL_DT_INST_DEFINE(inst, pn532_init, &data##inst,           \
-                        &pn532_emul_cfg_##inst, &pn532_api, NULL)
+                        &pn532_emul_cfg_##inst, &pn532_api)
 
 DT_INST_FOREACH_STATUS_OKAY(PN532_EMUL)
 
