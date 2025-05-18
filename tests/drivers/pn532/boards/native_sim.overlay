@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/ {
-    pn532: pn532 {
+&i2c0 {
+    pn532: pn532@24 {
         compatible = "nxp,pn532";
-        status = "okay";
+        reg = <0x24>;
+        status = "disabled";
     };
 };
