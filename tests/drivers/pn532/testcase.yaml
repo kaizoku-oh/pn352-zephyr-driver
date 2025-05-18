@@ -11,4 +11,4 @@ tests:
       - drivers
       - pn532
     extra_configs:
-      - CONFIG_PN532_TRANSPORT_MOCK=y
+      - CONFIG_PN532_TRANSPORT_MOCK=n
