@@ -19,9 +19,15 @@ struct pn532_data {
     uint32_t dummy;
 };
 
+#ifdef CONFIG_TEST
+struct pn532_emul_cfg {
+    uint16_t addr;
+};
+#else
 struct pn532_config {
     const struct device *i2c_dev;
 };
+#endif /* CONFIG_TEST */
 
 static int get_firmware_version(const struct device *dev, uint32_t *version)
 {
@@ -51,6 +57,8 @@ static int pn532_init(const struct device *dev)
     return 0;
 }
 
+#ifdef CONFIG_TEST
+
 #define PN532_DEFINE(inst)                                         \
     static struct pn532_data data##inst;                           \
                                                                    \
@@ -64,3 +72,19 @@ static int pn532_init(const struct device *dev)
                           &pn532_api);
 
 DT_INST_FOREACH_STATUS_OKAY(PN532_DEFINE)
+
+#else
+
+#define PN532_EMUL(inst)                                         \
+    static struct pn532_data data##inst;                         \
+                                                                 \
+    static const struct pn532_emul_cfg pn532_emul_cfg_##inst = { \
+        .addr = DT_INST_REG_ADDR(inst),                          \
+    };                                                           \
+                                                                 \
+    EMUL_DT_INST_DEFINE(inst, pn532_init, &data##inst,           \
+                        &pn532_emul_cfg_##inst, &pn532_api, NULL)
+
+DT_INST_FOREACH_STATUS_OKAY(PN532_EMUL)
+
+#endif /* CONFIG_TEST */
