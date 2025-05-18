@@ -11,3 +11,4 @@ tests:
       - pn532
     extra_configs:
       - CONFIG_TEST=y
+      - CONFIG_PN532_TRANSPORT_MOCK=y

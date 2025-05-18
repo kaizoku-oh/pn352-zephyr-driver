@@ -22,6 +22,12 @@ config PN532_INIT_PRIORITY
     help
       PN532 device drivers init priority.
 
+config PN532_TRANSPORT_MOCK
+    bool "Use mock transport for PN532"
+    default n
+    help
+      Use a dummy transport backend for testing purposes.
+
 module = PN532
 module-str = pn532
 source "subsys/logging/Kconfig.template.log_config"

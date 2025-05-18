@@ -13,6 +13,7 @@
 LOG_MODULE_REGISTER(pn532, CONFIG_PN532_LOG_LEVEL);
 
 #include "pn532.h"
+#include "pn532_transport.h"
 
 struct pn532_data {
     uint32_t dummy;
@@ -39,16 +40,13 @@ static DEVICE_API(pn532, pn532_api) = {
 
 static int pn532_init(const struct device *dev)
 {
-    const struct pn532_config *config = dev->config;
-    struct pn532_data *data = dev->data;
-
-    if (!device_is_ready(config->i2c_dev)) {
-        LOG_ERR("I2C device %s not ready", config->i2c_dev->name);
-        LOG_ERR("Dummy data = %d", data->dummy);
-        return -ENODEV;
+    int ret = pn532_transport_init(dev);
+    if (ret < 0) {
+        LOG_ERR("Transport init failed: %d", ret);
+        return ret;
     }
 
-    LOG_INF("PN532 initialized on I2C device %s", config->i2c_dev->name);
+    LOG_INF("PN532 initialized");
 
     return 0;
 }
