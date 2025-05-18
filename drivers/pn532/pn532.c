@@ -48,31 +48,18 @@ static DEVICE_API(pn532, pn532_api) = {
 
 static int emul_pn532_reg_write(const struct emul *target, int reg, int val)
 {
+	ARG_UNUSED(target);
+	ARG_UNUSED(reg);
+	ARG_UNUSED(val);
 
-	return -EIO;
+	return 0;
 }
 
 static int emul_pn532_reg_read(const struct emul *target, int reg, int *val)
 {
-
-	switch (reg) {
-	case REGISTER_VERSION:
-	*val = 0x1000;
-		break;
-	case REGISTER_CRATE:
-	*val = crate_value;
-	break;
-	case REGISTER_SOC:
-	*val = 0x3525;
-		break;
-	case REGISTER_VCELL:
-	*val = 0x4387;
-		break;
-	default:
-		LOG_ERR("Unknown register 0x%x read", reg);
-		return -EIO;
-	}
-	LOG_INF("read 0x%x = 0x%x", reg, *val);
+	ARG_UNUSED(target);
+	ARG_UNUSED(reg);
+	ARG_UNUSED(val);
 
 	return 0;
 }
@@ -80,60 +67,12 @@ static int emul_pn532_reg_read(const struct emul *target, int reg, int *val)
 static int pn532_transfer_i2c(const struct emul *target, struct i2c_msg *msgs,
 				       int num_msgs, int addr)
 {
-	/* Largely copied from emul_bmi160.c */
-	unsigned int val;
-	int reg;
-	int rc;
+	ARG_UNUSED(target);
+	ARG_UNUSED(msgs);
+	ARG_UNUSED(num_msgs);
+	ARG_UNUSED(addr);
 
-	__ASSERT_NO_MSG(msgs && num_msgs);
-
-	i2c_dump_msgs_rw(target->dev, msgs, num_msgs, addr, false);
-	switch (num_msgs) {
-	case 2:
-		if (msgs->flags & I2C_MSG_READ) {
-			LOG_ERR("Unexpected read");
-			return -EIO;
-		}
-		if (msgs->len != 1) {
-			LOG_ERR("Unexpected msg0 length %d", msgs->len);
-			return -EIO;
-		}
-		reg = msgs->buf[0];
-
-		/* Now process the 'read' part of the message */
-		msgs++;
-		if (msgs->flags & I2C_MSG_READ) {
-			switch (msgs->len - 1) {
-			case 1:
-				rc = emul_pn532_reg_read(target, reg, &val);
-				if (rc) {
-					/* Return before writing bad value to message buffer */
-					return rc;
-				}
-
-				/* SBS uses SMBus, which sends data in little-endian format. */
-				sys_put_le16(val, msgs->buf);
-				break;
-			default:
-				LOG_ERR("Unexpected msg1 length %d", msgs->len);
-				return -EIO;
-			}
-		} else {
-			/* We write a word (2 bytes by the SBS spec) */
-			if (msgs->len != 2) {
-				LOG_ERR("Unexpected msg1 length %d", msgs->len);
-			}
-			uint16_t value = sys_get_le16(msgs->buf);
-
-			rc = emul_pn532_reg_write(target, reg, value);
-		}
-		break;
-	default:
-		LOG_ERR("Invalid number of messages: %d", num_msgs);
-		return -EIO;
-	}
-
-	return rc;
+	return 0;
 }
 
 static const struct i2c_emul_api pn532_emul_api_i2c = {
@@ -155,6 +94,8 @@ static int emul_pn532_init(const struct emul *target, const struct device *paren
 	return 0;
 }
 
+#ifndef CONFIG_TEST
+
 static int pn532_init(const struct device *dev)
 {
     int ret = pn532_transport_init(dev);
@@ -167,6 +108,8 @@ static int pn532_init(const struct device *dev)
 
     return 0;
 }
+
+#endif /* CONFIG_TEST */
 
 #ifdef CONFIG_TEST
 
