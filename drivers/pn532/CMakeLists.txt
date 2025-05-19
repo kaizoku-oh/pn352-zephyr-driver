@@ -7,10 +7,9 @@ zephyr_include_directories(../../include/zephyr/drivers/pn532)
 
 zephyr_syscall_header(../../include/zephyr/drivers/pn532/pn532.h)
 
-zephyr_library_sources(pn532.c)
+zephyr_library_sources(
+  pn532.c
+  pn532_transport_i2c.c
+)
 
-if(CONFIG_PN532_TRANSPORT_MOCK)
-  zephyr_library_sources(pn532_transport_mock.c)
-else()
-  zephyr_library_sources(pn532_transport_i2c.c)
-endif()
+zephyr_library_sources_ifdef(CONFIG_EMUL_PN532 ./emul_pn532.c)
