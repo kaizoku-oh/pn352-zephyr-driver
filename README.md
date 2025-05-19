@@ -2,6 +2,7 @@
 
 [![GitHub Build workflow status](https://github.com/bytefull/pn532-zephyr-driver/workflows/Build/badge.svg)](https://github.com/bytefull/pn532-zephyr-driver/actions/workflows/build.yml)
 [![GitHub Test workflow status](https://github.com/bytefull/pn532-zephyr-driver/workflows/Test/badge.svg)](https://github.com/bytefull/pn532-zephyr-driver/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/bytefull/pn532-zephyr-driver/branch/codecov/graph/badge.svg)](https://codecov.io/gh/bytefull/pn532-zephyr-driver)
 [![GitHub release](https://img.shields.io/github/v/release/bytefull/pn532-zephyr-driver)](https://github.com/bytefull/pn532-zephyr-driver/releases)
 [![Zephyr Compatibility](https://img.shields.io/badge/Zephyr-v4.1.0-blue)](https://github.com/zephyrproject-rtos/zephyr/releases/tag/v4.1.0)
 [![GitHub issues](https://img.shields.io/github/issues/bytefull/pn532-zephyr-driver)](https://github.com/bytefull/pn532-zephyr-driver/issues)

@@ -1,0 +1,47 @@
+# Copyright (c) 2025 Bayrem Gharsellaoui
+# SPDX-License-Identifier: Apache-2.0
+
+name: Code Coverage
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout module repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Set up Zephyr
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          manifest-file-name: west.yml
+          toolchains: arm-zephyr-eabi
+
+      - name: Install lcov for coverage reporting
+        run: sudo apt-get update && sudo apt-get install -y lcov
+
+      - name: Run twister with coverage
+        run: |
+          west twister -p native_sim \
+            -T tests/drivers/pn532 \
+            --inline-logs \
+            --coverage \
+            --outdir twister-out
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: twister-out/coverage.info
+          flags: unittests
+          fail_ci_if_error: true
