@@ -13,6 +13,7 @@ LOG_MODULE_REGISTER(pn532_i2c, CONFIG_PN532_LOG_LEVEL);
 
 int pn532_transport_init(const struct device *dev)
 {
+	ARG_UNUSED(dev);
     LOG_INF("PN532 I2C transport initialized");
 
     return 0;
@@ -20,15 +21,18 @@ int pn532_transport_init(const struct device *dev)
 
 int pn532_transport_write(const struct device *dev, const uint8_t *buf, size_t len)
 {
-    LOG_DBG("PN532 I2C write %zu bytes", len);
+	ARG_UNUSED(dev);
+	ARG_UNUSED(buf);
+	ARG_UNUSED(len);
 
     return 0;
 }
 
 int pn532_transport_read(const struct device *dev, uint8_t *buf, size_t len)
 {
-    LOG_DBG("PN532 I2C read %zu bytes", len);
-    memset(buf, 0xA5, len);
+	ARG_UNUSED(dev);
+	ARG_UNUSED(buf);
+	ARG_UNUSED(len);
 
     return 0;
 }
