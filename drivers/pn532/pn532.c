@@ -97,8 +97,6 @@ static int pn532_init(const struct device *dev)
 
 DT_INST_FOREACH_STATUS_OKAY(PN532_EMUL)
 
-#else
-
 #define PN532_DEFINE(inst)                                         \
     static struct pn532_data data##inst;                           \
                                                                    \
