@@ -51,20 +51,20 @@ static int pn532_init(const struct device *dev)
     return 0;
 }
 
-#define PN532_DEFINE(inst)                            \
-    static struct pn532_data data##inst;              \
-                                                      \
-    static const struct pn532_config config##inst = { \
-        .i2c_dev = DEVICE_DT_GET(DT_INST_BUS(inst)),  \
-    };                                                \
-                                                      \
-    DEVICE_DT_INST_DEFINE(inst,                       \
-                          pn532_init,                 \
-                          NULL,                       \
-                          &data##inst,                \
-                          &config##inst,              \
-                          POST_KERNEL,                \
-                          CONFIG_PN532_INIT_PRIORITY, \
+#define PN532_DEFINE(inst)                             \
+    static struct pn532_data data_##inst;              \
+                                                       \
+    static const struct pn532_config config_##inst = { \
+        .i2c_dev = DEVICE_DT_GET(DT_INST_BUS(inst)),   \
+    };                                                 \
+                                                       \
+    DEVICE_DT_INST_DEFINE(inst,                        \
+                          pn532_init,                  \
+                          NULL,                        \
+                          &data_##inst,                \
+                          &config_##inst,              \
+                          POST_KERNEL,                 \
+                          CONFIG_PN532_INIT_PRIORITY,  \
                           &pn532_api);
 
 DT_INST_FOREACH_STATUS_OKAY(PN532_DEFINE)

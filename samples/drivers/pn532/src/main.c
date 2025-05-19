@@ -13,11 +13,6 @@ LOG_MODULE_REGISTER(main);
 
 #include "pn532.h"
 
-/**
-  * @brief  Program entry point
-  * @param  None
-  * @retval None
-  */
 int main(void)
 {
     const struct device *dev = DEVICE_DT_GET_ONE(nxp_pn532);
