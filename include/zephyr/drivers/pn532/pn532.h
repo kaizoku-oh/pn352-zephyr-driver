@@ -85,7 +85,13 @@ __syscall int pn532_get_firmware_version(const struct device *dev, uint32_t *ver
 
 static inline int z_impl_pn532_get_firmware_version(const struct device *dev, uint32_t *version)
 {
-    __ASSERT_NO_MSG(DEVICE_API_IS(pn532, dev));
+    if ((dev == NULL) || (version == NULL)) {
+        return -EINVAL;
+    }
+
+    if (!DEVICE_API_IS(pn532, dev)) {
+        return -ENOTSUP;
+    }
 
     return DEVICE_API_GET(pn532, dev)->pn532_get_firmware_version(dev, version);
 }

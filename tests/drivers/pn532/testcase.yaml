@@ -1,0 +1,14 @@
+# Copyright (c) 2025 Bayrem Gharsellaoui
+# SPDX-License-Identifier: Apache-2.0
+
+tests:
+  driver.pn532:
+    platform_allow:
+      - native_sim
+    integration_platforms:
+      - native_sim
+    tags:
+      - drivers
+      - pn532
+    extra_configs:
+      - CONFIG_EMUL_PN532=y
