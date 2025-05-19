@@ -30,3 +30,5 @@ The PN532 Zephyr driver is an out-of-tree module supporting the NXP PN532 NFC mo
 - [ ] Implement the `get_firmware_version` functionality using I2C transport
 
 - [ ] Add the other relavant missing APIs to the driver
+
+- [ ] Add documentation using GitHub pages and MkDocs material and docs deploy workflow + badge
