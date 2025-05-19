@@ -23,11 +23,9 @@ ZTEST(pn532, test_get_firmware_version)
 
     zassert_true(device_is_ready(dev), "PN532 device is not ready");
 
-    // zassert_equal(EINVAL, pn532_get_firmware_version(NULL, NULL));
-    // zassert_equal(0, version);
+    zassert_equal(EINVAL, pn532_get_firmware_version(NULL, NULL));
 
     // zassert_equal(EINVAL, pn532_get_firmware_version(dev, NULL));
-    // zassert_equal(0, version);
 
     // zassert_equal(EINVAL, pn532_get_firmware_version(NULL, &version));
     // zassert_equal(0, version);
