@@ -31,16 +31,14 @@ static int get_firmware_version(const struct device *dev, uint32_t *version)
         return -EINVAL;
     }
 
-   /**
-    * 1. Build the frame using the command and command length as inputs
-    * 2. Send the frame over the configured transport e.g: I2C
-    * 3. Wait (timeout+retry) for the PN532 to be ready to give us an answer (in this case: ACK),
-    *    e.g: in I2C this is done by polling/reading the RDY status byte
-    * 4. Read ACK frame (6 bytes) over the configured transport and verify it
-    * 5. Poll the RDY status byte again to check if the PN532 to be ready to give us an answer
-    *    (in this case: firmware version)
-    * 6. Optionally we can send an ACK to the PN532
-    */
+    /* 1. Build the frame using the command and command length as inputs */
+    /* 2. Send the frame over the configured transport e.g: I2C */
+    /* 3. Wait (timeout+retry) for the PN532 to be ready to give us an answer (in this case: ACK),
+          e.g: in I2C this is done by polling/reading the RDY status byte */
+    /* 4. Read ACK frame (6 bytes) over the configured transport and verify it
+    /* 5. Poll the RDY status byte again to check if the PN532 to be ready to give us an answer
+          (in this case: firmware version) */
+    /* 6. Optionally we can send an ACK to the PN532 */
 
     /* TODO: Replace dummy hardcoded value with real implementation */
     *version = 0x01020304;
