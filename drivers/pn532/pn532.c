@@ -22,6 +22,7 @@ struct pn532_data {
 
 struct pn532_config {
     const struct device *i2c_dev;
+    uint16_t i2c_addr;
 };
 
 static int get_firmware_version(const struct device *dev, uint32_t *version)
@@ -69,6 +70,7 @@ static int pn532_init(const struct device *dev)
                                                        \
     static const struct pn532_config config_##inst = { \
         .i2c_dev = DEVICE_DT_GET(DT_INST_BUS(inst)),   \
+        .i2c_addr = DT_INST_REG_ADDR(inst),            \
     };                                                 \
                                                        \
     DEVICE_DT_INST_DEFINE(inst,                        \
