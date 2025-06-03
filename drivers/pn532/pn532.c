@@ -15,94 +15,6 @@ LOG_MODULE_REGISTER(pn532, CONFIG_PN532_LOG_LEVEL);
 #include "pn532.h"
 #include "pn532_transport.h"
 
-#define PREAMBLE                            0x00
-#define START_OF_PACKET_CODE                0x00FF
-#define PACKET_LENGTH                       LEN
-#define PACKET_LENGTH_CHECKSUM              LCS
-#define SPECIFIC_PN532_FRAME_IDENTIFIER     TFI
-#define PACKET_DATA                         PD0...PDn
-#define PACKET_DATA_CHECKSUM                DCS
-#define POSTAMBLE                           0x00
-
-/*
- * PN532 normal information frame format:
- *
- * Preamble        : 1 byte (0x00)
- * Start Code      : 2 byte (0x00, 0xFF)
- * Length          : 1 byte (length of TFI + data)
- * Length Checksum : 1 byte (LCS = 0x100 - Length)
- * Frame Identifier: 1 byte (TFI = 0xD4 for host-to-PN532, 0xD5 for PN532-to-host)
- * Data            : N bytes (payload)
- * Data Checksum   : 1 byte, such that (TFI + data + DCS) & 0xFF == 0x00
- * Postamble       : 0x00
- */
-struct pn532_info_frame {
-    uint8_t preamble;
-    uint8_t start_code_1;
-    uint8_t start_code_2;
-    uint8_t len;
-    uint8_t lcs;
-    uint8_t tfi;
-    uint8_t *data;
-    uint8_t dcs;
-    uint8_t postamble;
-};
-
-/*
- * PN532 acknowledgement frame format:
- *
- * Preamble   : 1 byte (0x00)
- * Start Code : 2 byte (0x00, 0xFF)
- * ACK Code   : 2 byte (0x00, 0xFF)
- * Postamble  : 1 byte (0x00)
- */
-struct pn532_ack_frame {
-    uint8_t preamble;
-    uint8_t start_code_1;
-    uint8_t start_code_2;
-    uint8_t ack_code_1;
-    uint8_t ack_code_2;
-    uint8_t postamble;
-};
-
-/*
- * PN532 nack frame format:
- *
- * Preamble   : 1 byte (0x00)
- * Start Code : 2 byte (0x00, 0xFF)
- * NACK Code  : 2 byte (0xFF, 0x00)
- * Postamble  : 1 byte (0x00)
- */
-struct pn532_nack_frame {
-    uint8_t preamble;
-    uint8_t start_code_1;
-    uint8_t start_code_2;
-    uint8_t nack_code_1;
-    uint8_t nack_code_2;
-    uint8_t postamble;
-};
-
-/*
- * PN532 error frame format:
- *
- * Preamble                              : 1 byte (0x00)
- * Start Code                            : 2 bytes (0x00, 0xFF)
- * Length                                : 1 byte (0x01)
- * Length Checksum                       : 1 byte (0xFF)
- * Specific Application Level Error Code : 1 byte (0x7F)
- * Data Checksum                         : 1 byte (0x81)
- * Postamble                             : 1 byte (0x00)
- */
-struct pn532_error_frame {
-    uint8_t preamble;
-    uint8_t start_code_1;
-    uint8_t start_code_2;
-    uint8_t len;
-    uint8_t lcs;
-    uint8_t error_code;
-    uint8_t dcs;
-    uint8_t postamble;
-};
 
 struct pn532_data {
     uint32_t dummy;
@@ -118,6 +30,18 @@ static int get_firmware_version(const struct device *dev, uint32_t *version)
         return -EINVAL;
     }
 
+   /**
+    * 1. Build the frame using the command and command length as inputs
+    * 2. Send the frame over the configured transport e.g: I2C
+    * 3. Wait (timeout+retry) for the PN532 to be ready to give us an answer (in this case: ACK),
+    *    e.g: in I2C this is done by polling/reading the RDY status byte
+    * 4. Read ACK frame (6 bytes) over the configured transport and verify it
+    * 5. Poll the RDY status byte again to check if the PN532 to be ready to give us an answer
+    *    (in this case: firmware version)
+    * 6. Optionally we can send an ACK to the PN532
+    */
+
+    /* TODO: Replace dummy hardcoded value with real implementation */
     *version = 0x01020304;
 
     return 0;

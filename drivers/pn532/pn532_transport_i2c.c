@@ -36,3 +36,10 @@ int pn532_transport_read(const struct device *dev, uint8_t *buf, size_t len)
 
     return 0;
 }
+
+bool pn532_transport_is_ready(const struct device *dev)
+{
+    ARG_UNUSED(dev);
+
+    return true;
+}
