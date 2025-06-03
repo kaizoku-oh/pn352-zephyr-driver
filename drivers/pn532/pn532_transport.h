@@ -56,9 +56,10 @@ int pn532_transport_read(const struct device *dev, uint8_t *buf, size_t len);
  * is ready for communication with the PN532 device.
  *
  * @param dev Pointer to the PN532 device structure.
+ * @param timeout_ms Timeout to wait in milliseconds
  *
  * @return true if the transport is ready, false otherwise.
  */
-bool pn532_transport_is_ready(const struct device *dev);
+bool pn532_transport_is_ready(const struct device *dev, int timeout_ms);
 
 #endif /* PN532_TRANSPORT_H */
